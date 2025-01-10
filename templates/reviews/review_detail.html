@@ -1,0 +1,18 @@
+{% extends "_base.html" %}
+
+{% block title %}Review{% endblock %}
+{% block main %}
+  <div class="card border-secondary m-auto mb-3 text-center shadow-sm"
+    style="max-width: 30rem">
+    <div class="card-header">Review</div>
+    <div class="card-body">
+        <h5 class="card-title">{{ review.comment }}</h5>
+    </div>
+    <div class="card-footer">
+      <small class="text-muted">
+        Created on: {{ review.created }}
+        Last updated: {{ review.updated }}
+      </small>
+    </div>
+  </div>
+{% endblock %}
