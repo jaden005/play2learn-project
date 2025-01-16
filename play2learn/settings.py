@@ -42,6 +42,7 @@ INSTALLED_APPS = [
 
     # local apps
     'common.apps.CommonConfig',
+    'contacts.apps.ContactsConfig',
     'games.apps.GamesConfig',
     'pages.apps.PagesConfig',
     'reviews.apps.ReviewsConfig',
