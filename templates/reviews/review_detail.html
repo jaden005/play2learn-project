@@ -9,6 +9,17 @@
         <h5 class="card-title">{{ review.comment }}</h5>
     </div>
     <div class="card-footer">
+      <div>
+        {% if review.tag %}
+          <span class="badge rounded-pill bg-secondary">{{ review.tag }}</span>
+        {% endif %}
+      </div>
+      <div class="border-bottom border-faded m-2 pb-3">
+        <a href="{% url 'reviews:update' review.slug %}"
+          class="btn btn-info btn-sm me-2">Update</a>
+        <a href="{% url 'reviews:delete' review.slug %}"
+          class="btn btn-danger btn-sm me-2">Delete</a>
+      </div>
       <small class="text-muted">
         Created on: {{ review.created }}
         Last updated: {{ review.updated }}

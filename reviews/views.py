@@ -5,10 +5,11 @@ from django.views.generic import (
 )
 
 from .models import Review
+from .forms import ReviewForm
 
 class ReviewCreateView(CreateView):
     model = Review
-    fields = ['comment']
+    form_class = ReviewForm
 
 
 class ReviewDeleteView(DeleteView):
@@ -26,4 +27,4 @@ class ReviewListView(ListView):
 
 class ReviewUpdateView(UpdateView):
     model = Review
-    fields = ['comment']
+    form_class = ReviewForm
