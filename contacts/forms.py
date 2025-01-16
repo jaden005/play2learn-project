@@ -1,7 +1,11 @@
 from django import forms
 
 class ContactForm(forms.Form):
-    first_name = forms.CharField()
+    first_name = forms.CharField(
+        widget=forms.TextInput(attrs={'autofocus': True})
+    )
     last_name = forms.CharField()
     email = forms.EmailField()
-    comment = forms.CharField()
+    comment = forms.CharField(
+        widget=forms.Textarea(attrs={'cols': '75', 'rows': '5'})
+    )

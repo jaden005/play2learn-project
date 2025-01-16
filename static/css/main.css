@@ -13,3 +13,8 @@ header {
 h2 {
     font-style: italic;
 }
+
+/* FORM STYLES */
+label {
+    font-variant: small-caps;
+}
