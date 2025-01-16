@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.db import models
 from django.urls import reverse
 
@@ -5,6 +6,9 @@ from common.utils.text import unique_slug
 
 class Review(models.Model):
     comment = models.TextField(max_length=200)
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL, on_delete=models.PROTECT
+    )
     tag = models.ForeignKey(
         'Tag', on_delete=models.PROTECT, null=True
     )
