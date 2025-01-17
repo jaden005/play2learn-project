@@ -14,4 +14,5 @@ urlpatterns = [
     path('contacts/', include('contacts.urls')),
     path('reviews/', include('reviews.urls')),
     path('', include('pages.urls')),
+    path('', include("games.urls"))
 ]

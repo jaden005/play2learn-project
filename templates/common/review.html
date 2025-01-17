@@ -1,7 +1,27 @@
-<div class="card border-primary m-auto mb-3 text-center"
-  style="max-width: 30rem">
-  <div class="card-header">Featured Review</div>
-  <div class="card-body">
-    <h5 class="card-title">{{ review.comment }}</h5>
+<div id="featuredReviewsCarousel" class="carousel slide" data-bs-ride="carousel">
+  <div class="carousel-inner">
+    {% for review in reviews %}
+      <div class="carousel-item {% if forloop.first %}active{% endif %}">
+        <div class="card border-light m-auto mb-3 text-center shadow-lg rounded" style="max-width: 30rem">
+          <div class="card-header bg-dark text-white">
+            <strong>Featured Review</strong>
+          </div>
+          <div class="card-body">
+            <h5 class="card-title">{{ review.comment }}</h5>
+          </div>
+        </div>
+      </div>
+    {% empty %}
+      <div class="carousel-item active">
+        <div class="card border-light m-auto mb-3 text-center shadow-lg rounded" style="max-width: 30rem">
+          <div class="card-header bg-danger text-white">
+            <strong>No Featured Reviews</strong>
+          </div>
+          <div class="card-body">
+            <h5 class="card-title">No featured reviews at the moment.</h5>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
   </div>
 </div>

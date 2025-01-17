@@ -2,20 +2,19 @@
 
 {% block title %}Review{% endblock %}
 {% block main %}
-  <div class="card border-secondary m-auto mb-3 text-center shadow-sm"
-    style="max-width: 30rem">
-    <div class="card-header">Review</div>
+  <div class="card border-light m-auto mb-3 text-center shadow-lg rounded" style="max-width: 30rem">
+    <div class="card-header bg-dark text-white">Review</div>
     <div class="card-body">
         <h5 class="card-title">{{ review.comment }}</h5>
     </div>
-    <div class="card-footer">
+    <div>
       <div>
         {% if review.tag %}
           <span class="badge rounded-pill bg-secondary">{{ review.tag }}</span>
         {% endif %}
       </div>
       {% if review.user == user %}
-        <div class="border-bottom border-faded m-2 pb-3">
+        <div class="m-1 pb-3">
           <a href="{% url 'reviews:update' review.slug %}"
             class="btn btn-info btn-sm me-2">Update</a>
           <a href="{% url 'reviews:delete' review.slug %}"
