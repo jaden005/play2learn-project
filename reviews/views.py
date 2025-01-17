@@ -9,6 +9,7 @@ from django.views.generic import (
 from .models import Review
 from .forms import ReviewForm
 
+
 class ReviewCreateView(SuccessMessageMixin, LoginRequiredMixin, CreateView):
     model = Review
     form_class = ReviewForm
