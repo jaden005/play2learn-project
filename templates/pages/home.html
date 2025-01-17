@@ -2,8 +2,23 @@
 {% load common_tags %}
 
 {% block title %}Home{% endblock %}
+
 {% block main %}
-  <h2>Welcome!</h2>
-  <p>Ready to learn?</p>
-{% featured_reviews %}
+<div class="mt-4">
+    <h1 class="text-center mb-4">Welcome to Play2Learn</h1>
+
+    {% featured_reviews %}
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="list-group">
+                <a href="{% url 'games:math-facts' %}" class="list-group-item list-group-item-action text-center">
+                    Math Facts
+                </a>
+                <a href="{% url 'games:anagram-hunt' %}" class="list-group-item list-group-item-action text-center">
+                    Anagram Hunt
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}

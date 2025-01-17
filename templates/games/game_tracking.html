@@ -1,0 +1,29 @@
+{% extends '_base.html' %}
+
+{% block title %}Game Tracking{% endblock %}
+
+{% block main %}
+<h1>Your Game Scores</h1>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Game Type</th>
+            <th>Score</th>
+            <th>Time Played</th>
+            <th>Settings</th>
+            <th>Date</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for score in user_scores %}
+            <tr>
+                <td>{{ score.game_type }}</td>
+                <td>{{ score.score }}</td>
+                <td>{{ score.time_played }}</td>
+                <td>{{ score.game_settings }}</td>
+                <td>{{ score.created_at }}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
