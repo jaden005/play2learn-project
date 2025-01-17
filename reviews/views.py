@@ -43,6 +43,62 @@ class ReviewDetailView(DetailView):
 
 class ReviewListView(ListView):
     model = Review
+    paginate_by = 10
+
+    def get_queryset(self):
+        ordering = self.get_ordering()
+        qs = Review.objects.all()
+
+        if 'slug' in self.kwargs:
+            slug = self.kwargs['slug']
+            qs = qs.filter(tags__slug=slug)
+        elif 'username' in self.kwargs:
+            username = self.kwargs['username']
+            qs = qs.filter(user__username=username)
+
+        return qs.order_by(ordering)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        order_fields, order_key, direction = self.get_order_settings()
+
+        context['order'] = order_key
+        context['direction'] = direction
+        
+        context['order_fields'] = list(order_fields.keys())[:-1]
+
+        return context
+    
+    def get_ordering(self):
+        order_fields, order_key, direction = self.get_order_settings()
+        
+        ordering = order_fields[order_key]
+
+        if direction != 'asc':
+            ordering = '-' + ordering
+
+        return ordering
+
+    def get_order_settings(self):
+        order_fields = self.get_order_fields()
+        default_order_key = order_fields['default_key']
+        order_key = self.request.GET.get('order', default_order_key)
+        direction = self.request.GET.get('direction', 'desc')
+        
+        if order_key not in order_fields:
+            order_key = default_order_key
+
+        return (order_fields, order_key, direction)
+    
+    def get_order_fields(self):
+        return {
+            'review': 'comment',
+            'creator': 'user__username',
+            'created': 'created',
+            'updated': 'updated',
+            'default_key': 'updated'
+        }
 
 
 class ReviewUpdateView(SuccessMessageMixin, UserPassesTestMixin, UpdateView):

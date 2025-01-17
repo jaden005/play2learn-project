@@ -11,4 +11,6 @@ urlpatterns = [
     path('review/create/', ReviewCreateView.as_view(), name='create'),
     path('review/<slug>/', ReviewDetailView.as_view(), name='detail'),
     path('', ReviewListView.as_view(), name='list'),
+    path('tag/<slug>/', ReviewListView.as_view(), name='tag'),
+    path('creator/<username>/', ReviewListView.as_view(), name='creator'),
 ]

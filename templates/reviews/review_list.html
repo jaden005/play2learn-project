@@ -2,12 +2,34 @@
 
 {% block title %}Reviews{% endblock %}
 {% block main %}
+    {% include 'includes/orderby.html' %}
     <a class="btn btn-success btn-sm float-end" href="{% url 'reviews:create' %}">
         + New Review
     </a>
     <h2>Reviews</h2>
     <div class="table-responsive">
         <table class="table table-striped" style="min-width: 500px">
+        <thead>
+            {% with order=request.GET.order dir=request.GET.direction %}
+            <tr>
+                {% if order == 'review' and dir == 'asc' %}
+                <th><a href="?order=review&direction=desc">Review</a></th>
+                {% else %}
+                <th><a href="?order=review&direction=asc">Review</a></th>
+                {% endif %}
+                {% if order == 'tag' and dir == 'asc' %}
+                <th><a href="?order=tag&direction=desc">Tag</a></th>
+                {% else %}
+                <th><a href="?order=tag&direction=asc">Tag</a></th>
+                {% endif %}
+                {% if order == 'creator' and dir == 'asc' %}
+                <th><a href="?order=creator&direction=desc">Creator</a></th>
+                {% else %}
+                <th><a href="?order=creator&direction=asc">Creator</a></th>
+                {% endif %}
+            </tr>
+            {% endwith %}
+        </thead>
         <thead>
             <tr>
             <th>Review</th><th>Tag</th><th>Actions</th>
@@ -20,8 +42,9 @@
                 <a href="{{ review.get_absolute_url }}">{{ review.comment }}</a>
                 </td>
                 <td>
-                {% if review.tag %}
-                    <span class="badge rounded-pill bg-secondary">{{ review.tag.tag }}</span>
+                {% if review.tag and review.tag.slug %}
+                    <a href="{% url 'reviews:tag' review.tag.slug %}?order={{ order }}&direction={{ direction }}"
+                        class="badge rounded-pill bg-secondary">{{ review.tag }}</a>
                 {% endif %}
                 </td>
                 <td>
@@ -33,7 +56,12 @@
                             <i class="far fa-trash-alt"></i>
                         </a>
                     {% else %}
-                        <small>by {{ review.user.username }}</small>
+                        <small>
+                            by 
+                            <a href="{% url 'reviews:creator' review.user.username %}?order={{ order }}&direction={{ direction }}">
+                                {{ review.user.username }}
+                            </a>
+                        </small>
                     {% endif %}
                 </td>
             </tr>
@@ -41,4 +69,5 @@
         </tbody>
         </table>
     </div>
+    {% include 'includes/pagination.html' %}
 {% endblock %}
