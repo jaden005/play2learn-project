@@ -18,3 +18,9 @@ h2 {
 label {
     font-variant: small-caps;
 }
+
+/* MESSAGE STYLES */
+.messagesuccess {
+    background-color: lightgreen;
+    color: darkgreen;
+}

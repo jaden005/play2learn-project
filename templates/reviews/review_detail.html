@@ -14,7 +14,7 @@
           <span class="badge rounded-pill bg-secondary">{{ review.tag }}</span>
         {% endif %}
       </div>
-      {% if joke.user == user %}
+      {% if review.user == user %}
         <div class="border-bottom border-faded m-2 pb-3">
           <a href="{% url 'reviews:update' review.slug %}"
             class="btn btn-info btn-sm me-2">Update</a>
