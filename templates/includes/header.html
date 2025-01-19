@@ -1,0 +1,82 @@
+{% load static %}
+<header>
+    <nav class="navbar navbar-expand-lg navbar-info bg-info">
+        <div class="container-fluid">
+            <a class="navbar-brand text-white" href="{% url 'pages:homepage' %}">
+                <img src="{% static 'images/logo.png' %}" alt="Logo" class="img-fluid" style="max-height: 40px;" />
+            </a>
+
+            <button class="navbar-toggler text-white" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent" 
+                aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link text-white {% if request.resolver_match.url_name == 'homepage' %}active{% endif %}" 
+                            href="{% url 'pages:homepage' %}">
+                            Home
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white {% if request.resolver_match.url_name == 'reviews:list' %}active{% endif %}" 
+                            href="{% url 'reviews:list' %}">
+                            Review
+                        </a>
+                    </li>
+                </ul>
+
+                <ul class="navbar-nav">
+                    {% if not user.is_authenticated %}
+                        <li class="nav-item">
+                            <a class="nav-link text-white" href="{% url 'account_login' %}">Log in</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white" href="{% url 'account_signup' %}">Sign up</a>
+                        </li>
+                    {% else %}
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle text-white" href="#" id="gamesDropdown" role="button" 
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                Games
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-light" aria-labelledby="gamesDropdown">
+                                <li><a class="dropdown-item" href="{% url 'games:anagram-hunt' %}">Anagram Hunt</a></li>
+                                <li><a class="dropdown-item" href="{% url 'games:math-facts' %}">Math Facts</a></li>
+                                <li><a class="dropdown-item" href="{% url 'games:game-scores' %}">Leader Board (Top 3 Scores)</a></li>
+                                <li><a class="dropdown-item" href="{% url 'games:math-scores' %}">All Math Facts Scores</a></li>
+                                <li><a class="dropdown-item" href="{% url 'games:anagram-scores' %}">All Anagram Hunt Scores</a></li>
+                            </ul>
+                        </li>
+
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle text-white" href="#" id="userDropdown" role="button" 
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                Me
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-light dropdown-menu-end" aria-labelledby="userDropdown">
+                                <li><a class="dropdown-item" href="{% url 'my-account' %}">My Account</a></li>
+                                <li>
+                                    <a class="dropdown-item" href="{% url 'reviews:creator' user.username %}?order={{ order }}&direction={{ direction }}">
+                                        My Play2Learn Reviews
+                                    </a>
+                                </li>
+                                <li><a class="dropdown-item" href="{% url 'games:my-scores' %}">My Top Scores</a></li>
+                                <li><a class="dropdown-item" href="{% url 'games:my-mf-scores' %}">My Math Facts Scores</a></li>
+                                <li><a class="dropdown-item" href="{% url 'games:my-ah-scores' %}">My Anagram Hunt Scores</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li>
+                                    <form method="post" action="{% url 'account_logout' %}">
+                                        {% csrf_token %}
+                                        <button class="dropdown-item">Log out</button>
+                                    </form>
+                                </li>
+                            </ul>
+                        </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>

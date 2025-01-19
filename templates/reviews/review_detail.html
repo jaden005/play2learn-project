@@ -1,16 +1,16 @@
-{% extends "_base.html" %}
+{% extends "_base_vue.html" %}
 
 {% block title %}Review{% endblock %}
 {% block main %}
-  <div class="card border-light m-auto mb-3 text-center shadow-lg rounded" style="max-width: 30rem">
-    <div class="card-header bg-dark text-white">Review</div>
+  <div class="card border-0 m-auto mb-3 text-center shadow-lg rounded" style="max-width: 30rem">
+    <div class="card-header bg-info text-white">Review</div>
     <div class="card-body">
         <h5 class="card-title">{{ review.comment }}</h5>
     </div>
     <div>
       <div>
         {% if review.tag %}
-          <span class="badge rounded-pill bg-secondary">{{ review.tag }}</span>
+          <span class="badge rounded-pill bg-info">{{ review.tag }}</span>
         {% endif %}
       </div>
       {% if review.user == user %}

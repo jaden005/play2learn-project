@@ -1,18 +1,18 @@
-{% extends '_base.html' %}
+{% extends '_base_vue.html' %}
 {% load crispy_forms_tags %}
 
 {% block title %}Confirm Registration{% endblock %}
 
 {% block main %}
-<div class="card border-primary m-auto mb-3" style="max-width: 30rem">
-  <div class="card-header text-center">Confirm Registration</div>
+<div class="card border-0 rounded shadow-lg m-auto mb-3" style="max-width: 30rem">
+  <div class="card-header text-center bg-info text-white">Confirm Registration</div>
   <div class="card-body">
     {% if confirmation %}
       <p class="card-text text-center">Please confirm your registration.</p>
       <form method="post"
         action="{% url 'account_confirm_email' confirmation.key %}">
         {% csrf_token %}
-        <button class="form-control btn btn-primary">CONFIRM</button>
+        <button class="form-control btn btn-info text-white">CONFIRM</button>
       </form>
     {% else %}
       <p class="card-text">

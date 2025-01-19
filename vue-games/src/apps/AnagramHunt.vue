@@ -21,7 +21,7 @@
           <li>How many anagrams can you make in a minute?</li>
         </ol>
       </div>
-      <button class="btn btn-primary w-100" @click="play">Play!</button>
+      <button class="btn btn-info w-100" @click="play">Play!</button>
     </div>
     <!-- Play Screen -->
     <div v-else-if="screen == 'play'" class="container">
@@ -55,7 +55,7 @@
         <p>Anagrams</p>
       </div>
       <div class="row d-flex flex-col text-center">
-        <button @click="play" class="btn btn-primary w-100 m-1">Play Again</button>
+        <button @click="play" class="btn btn-success w-100 m-1">Play Again</button>
         <button @click="screen = 'start'" class="btn btn-secondary w-100 m-1">Back to Start Screen</button>
       </div>
     </div>
@@ -126,9 +126,18 @@ export default {
       this.currentWord = this.anagramList[getRandomInteger(0, this.anagramList.length)];
       this.correctGuesses = [];
     },
-    async recordScore() {
-      // TODO: when Anagram Hunt finishes, make an Ajax call with axios (this.axios)
-      // to record the score on the backend
+    async recordScore(){
+        const data = {
+          "game": "ANAGRAM",
+          "score": this.score,
+          "max_number": this.wordLength,
+          "operation": "anagramhunt",
+          "user_id": 0
+        };
+
+        console.log(data);
+        const response = (await this.axios.post("/record-score/", data)).data;
+        console.log(response)
     }
   },
   watch: {

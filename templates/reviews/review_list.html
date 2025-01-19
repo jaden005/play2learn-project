@@ -1,73 +1,89 @@
-{% extends "_base.html" %}
+{% extends "_base_vue.html" %}
 
 {% block title %}Reviews{% endblock %}
 {% block main %}
     {% include 'includes/orderby.html' %}
-    <a class="btn btn-success btn-sm float-end" href="{% url 'reviews:create' %}">
+
+    <a class="btn btn-primary btn-sm float-end mb-4" href="{% url 'reviews:create' %}">
         + New Review
     </a>
-    <h2>Reviews</h2>
+
+    <h2 class="mb-4 text-center">Reviews</h2>
+
     <div class="table-responsive">
         <table class="table table-striped" style="min-width: 500px">
-        <thead>
-            {% with order=request.GET.order dir=request.GET.direction %}
-            <tr>
-                {% if order == 'review' and dir == 'asc' %}
-                <th><a href="?order=review&direction=desc">Review</a></th>
-                {% else %}
-                <th><a href="?order=review&direction=asc">Review</a></th>
-                {% endif %}
-                {% if order == 'tag' and dir == 'asc' %}
-                <th><a href="?order=tag&direction=desc">Tag</a></th>
-                {% else %}
-                <th><a href="?order=tag&direction=asc">Tag</a></th>
-                {% endif %}
-                {% if order == 'creator' and dir == 'asc' %}
-                <th><a href="?order=creator&direction=desc">Creator</a></th>
-                {% else %}
-                <th><a href="?order=creator&direction=asc">Creator</a></th>
-                {% endif %}
-            </tr>
-            {% endwith %}
-        </thead>
-        <thead>
-            <tr>
-            <th>Review</th><th>Tag</th><th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for review in review_list %}
-            <tr>
-                <td>
-                <a href="{{ review.get_absolute_url }}">{{ review.comment }}</a>
-                </td>
-                <td>
-                {% if review.tag and review.tag.slug %}
-                    <a href="{% url 'reviews:tag' review.tag.slug %}?order={{ order }}&direction={{ direction }}"
-                        class="badge rounded-pill bg-secondary">{{ review.tag }}</a>
-                {% endif %}
-                </td>
-                <td>
-                    {% if review.user == user %}
-                        <a href="{% url 'reviews:update' review.slug %}">
-                            <i class="fas fa-pencil-alt"></i>
-                        </a>
-                        <a href="{% url 'reviews:delete' review.slug %}">
-                            <i class="far fa-trash-alt"></i>
-                        </a>
-                    {% else %}
-                        <small>
-                            by 
-                            <a href="{% url 'reviews:creator' review.user.username %}?order={{ order }}&direction={{ direction }}">
-                                {{ review.user.username }}
+            <thead>
+                {% with order=request.GET.order dir=request.GET.direction %}
+                    <tr>
+                        <th>
+                            <a href="?order=review&direction={% if order == 'review' and dir == 'asc' %}desc{% else %}asc{% endif %}">
+                                Review
+                                {% if order == 'review' %}
+                                    <i class="fas {% if dir == 'asc' %}fa-arrow-up{% else %}fa-arrow-down{% endif %}"></i>
+                                {% endif %}
                             </a>
-                        </small>
-                    {% endif %}
-                </td>
-            </tr>
-            {% endfor %}
-        </tbody>
+                        </th>
+                        <th>
+                            <a href="?order=tag&direction={% if order == 'tag' and dir == 'asc' %}desc{% else %}asc{% endif %}">
+                                Tag
+                                {% if order == 'tag' %}
+                                    <i class="fas {% if dir == 'asc' %}fa-arrow-up{% else %}fa-arrow-down{% endif %}"></i>
+                                {% endif %}
+                            </a>
+                        </th>
+                        <th>
+                            <a href="?order=creator&direction={% if order == 'creator' and dir == 'asc' %}desc{% else %}asc{% endif %}">
+                                Creator
+                                {% if order == 'creator' %}
+                                    <i class="fas {% if dir == 'asc' %}fa-arrow-up{% else %}fa-arrow-down{% endif %}"></i>
+                                {% endif %}
+                            </a>
+                        </th>
+                    </tr>
+                {% endwith %}
+            </thead>
+            <thead>
+                <tr>
+                    <th>Review</th>
+                    <th>Tag</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for review in review_list %}
+                    <tr>
+                        <td>
+                            <a href="{{ review.get_absolute_url }}" class="text-primary">{{ review.comment }}</a>
+                        </td>
+                        <td>
+                            {% if review.tag and review.tag.slug %}
+                                <a href="{% url 'reviews:tag' review.tag.slug %}?order={{ order }}&direction={{ direction }}"
+                                    class="badge rounded-pill bg-info text-dark">{{ review.tag }}</a>
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if review.user == user %}
+                                <a href="{% url 'reviews:update' review.slug %}" class="btn btn-warning btn-sm me-2">
+                                    <i class="fas fa-pencil-alt"></i> Edit
+                                </a>
+                                <a href="{% url 'reviews:delete' review.slug %}" class="btn btn-danger btn-sm">
+                                    <i class="far fa-trash-alt"></i> Delete
+                                </a>
+                            {% else %}
+                                <small>
+                                    by
+                                    <a href="{% url 'reviews:creator' review.user.username %}?order={{ order }}&direction={{ direction }}"
+                                       class="text-muted">
+                                        {{ review.user.username }}
+                                    </a>
+                                </small>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
         </table>
     </div>
+
     {% include 'includes/pagination.html' %}
 {% endblock %}

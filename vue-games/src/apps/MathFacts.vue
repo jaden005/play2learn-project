@@ -25,7 +25,7 @@
           <li>How many questions can you get in a minute?</li>
         </ol>
       </div>
-      <button class="btn btn-primary w-100" @click="play">Play!</button>
+      <button class="btn btn-info w-100" @click="play">Play!</button>
     </div>
     <!-- Play Screen -->
     <div v-else-if="screen == 'play'" class="container">
@@ -97,7 +97,7 @@
         <p>questions</p>
       </div>
       <div class="row d-flex flex-col text-center">
-        <button @click="play" class="btn btn-primary w-100 m-1">Play Again</button>
+        <button @click="play" class="btn btn-success w-100 m-1">Play Again</button>
         <button @click="screen = 'start'" class="btn btn-secondary w-100 m-1">Back to Start Screen</button>
       </div>
     </div>
@@ -136,6 +136,7 @@ export default {
   },
   methods: {
     play() {
+      this.score = 0;
       this.screen = "play";
       this.getNewQuestion();
       this.interval = setInterval(() => {
@@ -158,9 +159,26 @@ export default {
         this.number2 = num2;
       }
     },
-    async recordScore() {
-      // TODO: when Math Facts finishes, make an Ajax call with axios (this.axios)
-      // to record the score on the backend
+    async recordScore(){
+      const data = {
+                    
+        "game": "MATH",
+        "score": this.score,
+        "max_number": this.maxNumber,
+        "operation": this.operation,
+        operations: {
+          "Addition": "+",
+          "Subtraction": "-",
+          "Multiplication": "x",
+          "Division": "/"
+        },
+        "user_id": 0
+        
+      };
+      console.log(data);
+      const response = (await this.axios.post("/record-score/", data)).data;
+      console.log(response)
+
     }
   },
   computed: {

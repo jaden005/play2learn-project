@@ -1,0 +1,56 @@
+{% extends "_base_vue.html" %}
+
+{% block title %}My Top Game Scores{% endblock %}
+{% block main %}
+<section class="me-auto" id="page-info">
+    <section id="page-header" class="text-center m-4">
+        <h1>My Top Game Scores</h1>
+    </section>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>Math Facts Scores</tr>
+            <tr>
+              <th scope="col">Score</th>
+              <th scope="col">User name</th>
+              <th scope="col">Game end time (UTC)</th>
+              <th scope="col">Max Number</th>
+              <th scope="col">Operation</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for score in math_scores %}
+            <tr>
+                <td>{{score.score}}</td>   
+                <td>{{score.user.username}}</td>
+                <td>{{score.end_time}}</td>
+                <td>{{score.max_number }}</td>
+                <td>{{ score.operation }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>Anagram Hunt Scores</tr>
+            <tr>
+              <th scope="col">Score</th>
+              <th scope="col">User name</th>
+              <th scope="col">Game end time (UTC)</th>
+              <th scope="col">Max Number</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            {% for score in anagram_scores %}
+            <tr>
+                <td>{{score.score}}</td>   
+                <td>{{score.user.username}}</td>
+                <td>{{score.end_time}}</td>
+                <td>{{score.max_number }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

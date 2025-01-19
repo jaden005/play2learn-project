@@ -1,0 +1,32 @@
+{% extends "_base_vue.html" %}
+
+{% block title %}My Anagram Hunt Scores{% endblock %}
+{% block main %}
+<section class="me-auto" id="page-info">
+    <section id="page-header" class="text-center m-4">
+        <h1>My Anagram Hunt Scores</h1>
+    </section>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+              <th scope="col">Score</th>
+              <th scope="col">User name</th>
+              <th scope="col">Game end time (UTC)</th>
+              <th scope="col">Max Number</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            {% for score in anagram_scores %}
+            <tr>
+                <td>{{score.score}}</td>   
+                <td>{{score.user.username}}</td>
+                <td>{{score.end_time}}</td>
+                <td>{{score.max_number }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</section>
+{% endblock %}

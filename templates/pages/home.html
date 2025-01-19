@@ -1,22 +1,32 @@
-{% extends "_base.html" %}
+{% extends "_base_vue.html" %}
 {% load common_tags %}
 
 {% block title %}Home{% endblock %}
 
 {% block main %}
-<div class="mt-4">
-    <h1 class="text-center mb-4">Welcome to Play2Learn</h1>
+<div class="mt-5">
+    <h1 class="text-center mb-5">Welcome to Play2Learn</h1>
 
     {% featured_reviews %}
+
     <div class="row justify-content-center">
-        <div class="col-md-6">
-            <div class="list-group">
-                <a href="{% url 'games:math-facts' %}" class="list-group-item list-group-item-action text-center">
-                    Math Facts
-                </a>
-                <a href="{% url 'games:anagram-hunt' %}" class="list-group-item list-group-item-action text-center">
-                    Anagram Hunt
-                </a>
+        <div class="col-md-5 mb-4">
+            <div class="card border-0 rounded shadow-lg">
+                <div class="card-body">
+                    <h5 class="card-title">Math Facts</h5>
+                    <p class="card-text">Sharpen your math skills with quick, fun, and challenging math problems. Test your knowledge and improve your speed!</p>
+                    <a href="{% url 'games:math-facts' %}" class="btn btn-info w-100">Play Now</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-5 mb-4">
+            <div class="card border-0 shadow-lg">
+                <div class="card-body">
+                    <h5 class="card-title">Anagram Hunt</h5>
+                    <p class="card-text">Challenge your mind with a game of anagrams. Unscramble letters to form words and boost your vocabulary!</p>
+                    <a href="{% url 'games:anagram-hunt' %}" class="btn btn-info w-100">Play Now</a>
+                </div>
             </div>
         </div>
     </div>

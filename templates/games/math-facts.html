@@ -1,0 +1,12 @@
+{% extends "_base_vue.html" %}
+
+{% block title %}Math Facts{% endblock %}
+
+{% block main %}
+  <div class="container" style="height: 60vh;">
+    <h1 class="text-center mb-4">Math Facts Game</h1>
+    <div id="app" class="d-flex justify-content-center align-items-center" style="height: 100%; width: 100%;">
+      {{ block.super }}
+    </div>
+  </div>
+{% endblock %}

@@ -1,10 +1,11 @@
-{% extends "_base.html" %}
+{% extends "_base_vue.html" %}
 {% load crispy_forms_tags %}
 
 {% block title %}Contact Us{% endblock %}
+
 {% block main %}
   <h2 class="text-center mb-4">Contact Us</h2>
-  <div class="card border-secondary mx-auto mb-5 p-4 shadow-lg" style="max-width: 50rem;">
+  <div class="card border-0 mx-auto mb-5 p-4 shadow-lg" style="max-width: 50rem;">
     <form method="post" novalidate>
       {% csrf_token %}
       <div class="row">
@@ -29,7 +30,7 @@
           {{ form.comment|as_crispy_field }}
         </div>
       </div>
-      <button type="submit" class="btn btn-dark w-100 mt-3">Send Message</button>
+      <button type="submit" class="btn btn-info w-100 mt-3">Send Message</button>
     </form>
   </div>
 {% endblock %}
